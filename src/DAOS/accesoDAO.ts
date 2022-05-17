@@ -2,6 +2,7 @@ import { Response } from 'express';
 import pool from '../configuracion/conexion';
 import AccesoControllerVerificar from '../controladores/acceso/accesoControllerVerificar';
 
+//Acceso DAO for data query
 class AccesoDAO {
   protected static async iniciarSesion(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.task(async consulta => {
