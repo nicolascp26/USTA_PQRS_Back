@@ -25,17 +25,20 @@ class Servidor {
   }
 
   public ruteo(): void {
+    //Rutas publicas
     this.app.use('/miapi/publico/usuario', usuarioRutas);
     this.app.use('/miapi/publico/acceso', accesoRutas);
+    //Rutas privadas
+    this.app.use('/miapi/privado/role',rolRutas);
   }
 
   public iniciar(): void {
     this.app.listen(this.app.get('PORT'), () => {
-      console.log('De por dios, el back es muy facil', this.app.get('PORT'));
+      console.log('Back Funcionando...', this.app.get('PORT'));
     });
   }
 
 }
 const miServidor = new Servidor();
-
+console.clear();
 miServidor.iniciar();

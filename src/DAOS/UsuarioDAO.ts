@@ -2,7 +2,6 @@ import { Response } from 'express';
 import pool from '../configuracion/conexion';
 import AccesoControllerVerificar from '../controladores/acceso/accesoControllerVerificar';
 import { SQL_ACCESO } from '../consultas/acceso_sql';
-import {SQL_REGISTRO} from '../consultas/registro_sql';
 
 class UsuarioDAO {
   protected static async registrarUsuario(sqlVerificarCorreo:string,sqlCrearUsuario: string, sqlCrearAcceso: string, sqlTodoListo:string, parametros: any, res: Response): Promise<any> {
