@@ -1,14 +1,20 @@
-import { Response, Request } from 'express';
-import GestorBD from '../../configuracion/gestorbd';
+import { Request, Response } from 'express';
+import RolDAO from '../../DAOS/rolDAO';
+import { SQL_ROL } from '../../consultas/rol_sql';
 
-class RolController extends GestorBD {
+class RolController extends RolDAO {
 
-  public obtenerRoles(req: Request, res: Response): Promise<any> {
-    const sql = 'SELECT rol_id,rol_nombre FROM roles ORDER BY ';
-    return RolController.ejecutarConsulta(sql,req,res,'select');
+  public obtenerTodosRoles(req: Request, res: Response) {
+    RolController.obtenerTodos(SQL_ROL.TODOS, req, res);
+  }
+
+  public eliminarUnRol(req: Request, res: Response) {
+    const id = req.params.rolID;
+    const params = [id];
+    RolController.eliminarRol(SQL_ROL.ELIMINAR, params, res);
   }
 
 }
 
-const miRolControlador = new RolController();
-export default miRolControlador;
+const rolController = new RolController();
+export default rolController;
