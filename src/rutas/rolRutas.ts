@@ -11,6 +11,7 @@ class RolRutas {
   public todasLasRutas(): void {
     this.router.get('/getAll', rolController.obtenerTodosRoles);
     this.router.delete('/delete/:rolID',rolController.eliminarUnRol);
+    this.router.post('/create',rolController.crearRol);
   }
 }
 
