@@ -14,6 +14,17 @@ class RolDAO {
       });
   }
 
+  protected static async crearRol(sql: string, parametros: any, res: Response): Promise<any> {
+    await pool.result(sql, parametros)
+      .then((resultado: any) => {
+        res.status(200).json({respuesta:"Rol creado", resultado: resultado.rowCount});
+      })
+      .catch((miError: any) => {
+        console.log(miError);
+        res.status(400).json({ respuesta: 'Error creando rol' });
+      });
+  }
+
   protected static async eliminarRol(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
