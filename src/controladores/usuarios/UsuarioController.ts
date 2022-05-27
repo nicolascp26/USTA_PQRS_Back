@@ -2,8 +2,13 @@ import { Request, Response } from 'express';
 import UsuarioDAO from '../../DAOS/UsuarioDAO';
 import nanoid from 'nanoid';
 import { SQL_REGISTRO } from '../../consultas/registro_sql';
+import { SQL_USUARIOS } from '../../consultas/usuarios_sql';
 
 class UsuarioController extends UsuarioDAO {
+
+public obtenerTodosUsuarios(req:Request,res:Response){
+  UsuarioController.obtenerTodos(SQL_USUARIOS.OBTENER_USUARIOS,req,res);
+}
 
   public registrarUsuarioAcceso(req: Request, res: Response): Promise<any> {
     const nombres = req.body[0].usuarioNombres;
@@ -21,6 +26,7 @@ class UsuarioController extends UsuarioDAO {
       parametros,
       res);
   }
+
 }
 const usuarioController = new UsuarioController();
 export default usuarioController;

@@ -9,8 +9,7 @@ class RolController extends RolDAO {
   }
 
   public crearRol(req: Request, res: Response){
-    const rol_nombre = req.body.rol_nombre;
-    const params = [rol_nombre];
+    const params = [req.body.rolNombre];
     return RolController.crearRol(SQL_ROL.CREAR_ROL,params,res);
   }
 
