@@ -4,6 +4,20 @@ import AccesoControllerVerificar from '../controladores/acceso/accesoControllerV
 import { SQL_ACCESO } from '../consultas/acceso_sql';
 
 class UsuarioDAO {
+
+//Metodo para listar usuarios
+  protected static async obtenerTodos(sql: string, parametros: any, res: Response): Promise<any> {
+    await pool.result(sql, parametros)
+      .then((resultado: any) => {
+        res.status(200).json(resultado.rows);
+      })
+      .catch((miError: any) => {
+        console.log(miError);
+        res.status(400).json({ respuesta: 'Error en la consulta rol' });
+      });
+  }
+
+  //Metodo para crear usuarios
   protected static async registrarUsuario(sqlVerificarCorreo:string,sqlCrearUsuario: string, sqlCrearAcceso: string, sqlTodoListo:string, parametros: any, res: Response): Promise<any> {
     await pool.task(async consulta => {
       const correoVerificar = parametros[3];

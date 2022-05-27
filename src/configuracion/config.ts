@@ -1,7 +1,7 @@
 export default {
   user: 'user_node',
   host: '127.0.0.1',
-  database: 'fis_pqrs',
+  database: 'fis_pqrs_2',
   password: '123456',
   port: 5433
 }
