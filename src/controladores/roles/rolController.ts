@@ -19,6 +19,13 @@ class RolController extends RolDAO {
     RolController.eliminarRol(SQL_ROL.ELIMINAR, params, res);
   }
 
+  public actualizarRol(req:Request, res:Response){
+    const id = req.params.rolID;
+    const nombre = req.body.rolNombre;
+    const params = [id,nombre];
+    RolController.actualizarRol(SQL_ROL.ACTUALIZAR,params,res);
+  }
+
 }
 
 const rolController = new RolController();

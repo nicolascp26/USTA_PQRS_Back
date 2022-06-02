@@ -10,5 +10,9 @@ export const SQL_ROL = {
   from roles r \
   order by r.rol_id',
 
-  ELIMINAR: 'DELETE FROM roles WHERE rol_id = $1'
+  ELIMINAR: 'DELETE FROM roles WHERE rol_id = $1',
+
+  ACTUALIZAR: 'UPDATE roles \
+  SET rol_nombre = $2 \
+  WHERE rol_id = $1'
 }
