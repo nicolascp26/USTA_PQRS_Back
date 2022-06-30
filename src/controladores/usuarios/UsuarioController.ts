@@ -27,6 +27,15 @@ public obtenerTodosUsuarios(req:Request,res:Response){
       res);
   }
 
+  public actualizarUsuario(req:Request, res:Response){
+    const id = req.params.rolID;
+    const nombres = req.body.usuarioNombres;
+    const apellidos = req.body.usuarioApellidos;
+    const documento = req.body.usuarioDocumento;
+    const params = [id, nombres, apellidos, documento];
+    UsuarioController.actualizarUsuario(SQL_REGISTRO.VERIFICAR_CORREO_UNICO,SQL_USUARIOS.ACTUALIZAR_USUARIO,params,res);
+  }
+
 }
 const usuarioController = new UsuarioController();
 export default usuarioController;
