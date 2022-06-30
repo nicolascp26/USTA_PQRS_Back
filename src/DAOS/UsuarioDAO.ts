@@ -22,16 +22,39 @@ class UsuarioDAO {
     await pool.task(async consulta => {
       const correoVerificar = parametros[3];
       const correo = await consulta.one(sqlVerificarCorreo, correoVerificar);
-      if(correo.existe == 0){
+      if(correo.count == 0){
+        console.log(parametros);
         const codUsuario = await consulta.one(sqlCrearUsuario, parametros);
         let acceso = [];
         acceso.push(parametros[3]);
         acceso.push(parametros[4]);
-        acceso.push(codUsuario.usuario_id);
+        acceso.push(codUsuario.usuarioId);
         await consulta.none(sqlCrearAcceso, acceso);
       return await consulta.result(SQL_ACCESO.INICIAR, acceso);
     }else{
       return await consulta.result(sqlTodoListo, [-1]);
+    }
+    }).then(resultado => {
+      const arreglo = resultado.rows;
+      if (arreglo.length == 0) {
+        res.status(400).json({ 'respuesta': 'usuario no valido' });
+      } else {
+        AccesoControllerVerificar.procesarRespuesta(arreglo[0], parametros[0], res);
+      }
+    }).catch(
+      miError => {
+        console.log(miError);
+        res.status(400).json({ 'respuesta': 'usuario no valido' });
+      }
+    );
+  }
+
+  protected static async actualizarUsuario(sqlVerificarCorreo:string,sqlActualizarUsuario: string, parametros: any, res: Response): Promise<any> {
+    await pool.task(async consulta => {
+      const correoVerificar = parametros[3];
+      const correo = await consulta.one(sqlVerificarCorreo, correoVerificar);
+      if(correo.existe == 0){
+      return await consulta.one(sqlActualizarUsuario, parametros);
     }
     }).then(resultado => {
       const arreglo = resultado.rows;

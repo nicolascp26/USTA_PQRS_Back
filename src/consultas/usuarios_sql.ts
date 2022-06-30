@@ -1,6 +1,7 @@
 export const SQL_USUARIOS = {
-  OBTENER_USUARIOS:'SELECT usuario_id, usuario_nombres, usuario_apellidos \
-  FROM usuarios',
+  OBTENER_USUARIOS:'SELECT u.usuario_id, u.usuario_nombres, u.usuario_apellidos, u.usuario_documento, \
+  u.usuario_telefono, r.rol_id, r.rol_nombre\
+  FROM usuario u INNER JOIN roles r ON u.usuario_rol = r.rol_id',
   ACTUALIZAR_USUARIO:'UPDATE usuarios \
   SET usuario_rol = $1\
   WHERE usuario_id=$2',
