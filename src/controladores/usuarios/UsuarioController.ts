@@ -6,6 +6,12 @@ import { SQL_USUARIOS } from '../../consultas/usuarios_sql';
 
 class UsuarioController extends UsuarioDAO {
 
+public obtenerUsuarioUnico(req:Request,res:Response){
+  const id = req.params.usuarioId;
+  const params = [id];
+  UsuarioController.obtenerUnico(SQL_USUARIOS.OBTENER_USUARIO_UNICO,params,res);
+}
+
 public obtenerTodosUsuarios(req:Request,res:Response){
   UsuarioController.obtenerTodos(SQL_USUARIOS.OBTENER_USUARIOS,req,res);
 }
