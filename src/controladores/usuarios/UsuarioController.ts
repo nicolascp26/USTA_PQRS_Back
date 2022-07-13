@@ -34,12 +34,14 @@ public obtenerTodosUsuarios(req:Request,res:Response){
   }
 
   public actualizarUsuario(req:Request, res:Response){
-    const id = req.params.rolID;
+    const id = req.params.usuarioId;
     const nombres = req.body.usuarioNombres;
     const apellidos = req.body.usuarioApellidos;
     const documento = req.body.usuarioDocumento;
-    const params = [id, nombres, apellidos, documento];
-    UsuarioController.actualizarUsuario(SQL_REGISTRO.VERIFICAR_CORREO_UNICO,SQL_USUARIOS.ACTUALIZAR_USUARIO,params,res);
+    const telefono = req.body.usuarioTelefono;
+    const rol = req.body.usuarioRol.rolId;
+    const params = [id, nombres, apellidos, documento, telefono, rol];
+    UsuarioController.actualizarUsuario(SQL_USUARIOS.ACTUALIZAR_USUARIO,params,res);
   }
 
 }
