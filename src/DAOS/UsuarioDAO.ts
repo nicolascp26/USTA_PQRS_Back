@@ -1,6 +1,5 @@
 import { Response } from 'express';
 import pool from '../configuracion/conexion';
-import AccesoControllerVerificar from '../controladores/acceso/accesoControllerVerificar';
 import { SQL_ACCESO } from '../consultas/acceso_sql';
 
 class UsuarioDAO {
@@ -13,7 +12,7 @@ class UsuarioDAO {
       })
       .catch((miError: any) => {
         console.log(miError);
-        res.status(400).json({ respuesta: 'Error en la consulta rol' });
+        res.status(400).json({ respuesta: 'Error en la consulta' });
       });
   }
 
@@ -25,7 +24,7 @@ class UsuarioDAO {
       })
       .catch((miError: any) => {
         console.log(miError);
-        res.status(400).json({ respuesta: 'Error en la consulta rol' });
+        res.status(400).json({ respuesta: 'Error en la consulta' });
       });
   }
 
@@ -49,9 +48,9 @@ class UsuarioDAO {
     }).then(resultado => {
       const arreglo = resultado.rows;
       if (arreglo.length == 0) {
-        res.status(400).json({ 'respuesta': 'usuario no valido' });
+        res.status(400).json({ 'respuesta': 'usuario ya existe' });
       } else {
-        AccesoControllerVerificar.procesarRespuesta(arreglo[0], parametros[0], res);
+        res.status(200).json(resultado.rows[0]);
       }
     }).catch(
       miError => {
@@ -61,26 +60,16 @@ class UsuarioDAO {
     );
   }
 
-  protected static async actualizarUsuario(sqlVerificarCorreo:string,sqlActualizarUsuario: string, parametros: any, res: Response): Promise<any> {
+  protected static async actualizarUsuario(sqlActualizarUsuario: string, parametros: any, res: Response): Promise<any> {
     await pool.task(async consulta => {
-      const correoVerificar = parametros[3];
-      const correo = await consulta.one(sqlVerificarCorreo, correoVerificar);
-      if(correo.existe == 0){
       return await consulta.one(sqlActualizarUsuario, parametros);
-    }
-    }).then(resultado => {
-      const arreglo = resultado.rows;
-      if (arreglo.length == 0) {
-        res.status(400).json({ 'respuesta': 'usuario no valido' });
-      } else {
-        AccesoControllerVerificar.procesarRespuesta(arreglo[0], parametros[0], res);
-      }
-    }).catch(
-      miError => {
-        console.log(miError);
-        res.status(400).json({ 'respuesta': 'usuario no valido' });
-      }
-    );
+    }).then((resultado: any) => {
+      res.status(200).json(resultado.rows);
+    })
+    .catch((miError: any) => {
+      console.log(miError);
+      res.status(400).json({ respuesta: 'Error en la consulta' });
+    });
   }
 }
 
