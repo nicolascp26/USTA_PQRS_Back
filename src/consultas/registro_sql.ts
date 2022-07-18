@@ -8,10 +8,9 @@ export const SQL_REGISTRO = {
 
    VERIFICAR_CORREO_UNICO:"SELECT COUNT(acc.acceso_correo) FROM acceso acc \
    WHERE acc.acceso_correo=$1",
-
+   
    TODO_LISTO: 'SELECT u.usuario_id, u.usuario_rol, u.usuario_estado, r.rol_nombre, a.acceso_correo \
   FROM usuario u INNER JOIN roles r ON u.usuario_rol = r.rol_id \
   INNER JOIN acceso a ON u.usuario_id = a.acceso_usuario_id \
   WHERE u.usuario_id = $1'
-
 };
