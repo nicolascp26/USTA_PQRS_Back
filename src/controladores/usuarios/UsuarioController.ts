@@ -39,7 +39,7 @@ public obtenerTodosUsuarios(req:Request,res:Response){
     const apellidos = req.body.usuarioApellidos;
     const documento = req.body.usuarioDocumento;
     const telefono = req.body.usuarioTelefono;
-    const rol = req.body.usuarioRol.rolId;
+    const rol = req.body.rolId;
     const params = [id, nombres, apellidos, documento, telefono, rol];
     UsuarioController.actualizarUsuario(SQL_USUARIOS.ACTUALIZAR_USUARIO,params,res);
   }

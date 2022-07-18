@@ -7,6 +7,7 @@ class AccesoDAO {
   protected static async iniciarSesion(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.task(async consulta => {
       const fila = await consulta.result(sql, parametros);
+      console.log(fila);
       return fila;
     }).then(resultado => {
       const arreglo = resultado.rows;

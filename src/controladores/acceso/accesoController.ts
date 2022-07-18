@@ -8,7 +8,6 @@ class AccesoController extends AccesoDAO {
     const correo = req.body.correoUsuario;
     const clave = req.body.claveUsuario;
     const parametros = [correo, clave];
-    console.log(req.body);
     return AccesoController.iniciarSesion(SQL_ACCESO.INICIAR, parametros, res);
   }
 }
