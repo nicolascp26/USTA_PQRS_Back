@@ -4,7 +4,7 @@ import { SQL_ACCESO } from '../consultas/acceso_sql';
 
 class UsuarioDAO {
 
-//Metodo para listar usuarios
+  //Metodo para listar usuarios
   protected static async obtenerTodos(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
@@ -29,11 +29,11 @@ class UsuarioDAO {
   }
 
   //Metodo para crear usuarios
-  protected static async registrarUsuario(sqlVerificarCorreo:string,sqlCrearUsuario: string, sqlCrearAcceso: string, sqlTodoListo:string, parametros: any, res: Response): Promise<any> {
+  protected static async registrarUsuario(sqlVerificarCorreo: string, sqlCrearUsuario: string, sqlCrearAcceso: string, sqlTodoListo: string, parametros: any, res: Response): Promise<any> {
     await pool.task(async consulta => {
       const correoVerificar = parametros[3];
       const correo = await consulta.one(sqlVerificarCorreo, correoVerificar);
-      if(correo.count == 0){
+      if (correo.count == 0) {
         console.log(parametros);
         const codUsuario = await consulta.one(sqlCrearUsuario, parametros);
         let acceso = [];
@@ -41,10 +41,10 @@ class UsuarioDAO {
         acceso.push(parametros[4]);
         acceso.push(codUsuario.usuarioId);
         await consulta.none(sqlCrearAcceso, acceso);
-      return await consulta.result(SQL_ACCESO.INICIAR, acceso);
-    }else{
-      return await consulta.result(sqlTodoListo, [-1]);
-    }
+        return await consulta.result(SQL_ACCESO.INICIAR, acceso);
+      } else {
+        return await consulta.result(sqlTodoListo, [-1]);
+      }
     }).then(resultado => {
       const arreglo = resultado.rows;
       if (arreglo.length == 0) {
@@ -66,10 +66,10 @@ class UsuarioDAO {
     }).then((resultado: any) => {
       res.status(200).json(resultado.rows);
     })
-    .catch((miError: any) => {
-      console.log(miError);
-      res.status(400).json({ respuesta: 'Error en la consulta' });
-    });
+      .catch((miError: any) => {
+        console.log(miError);
+        res.status(400).json({ respuesta: 'Error en la consulta' });
+      });
   }
 }
 

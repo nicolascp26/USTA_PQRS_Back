@@ -6,15 +6,15 @@ import { SQL_USUARIOS } from '../../consultas/usuarios_sql';
 
 class UsuarioController extends UsuarioDAO {
 
-public obtenerUsuarioUnico(req:Request,res:Response){
-  const id = req.params.usuarioId;
-  const params = [id];
-  UsuarioController.obtenerUnico(SQL_USUARIOS.OBTENER_USUARIO_UNICO,params,res);
-}
+  public obtenerUsuarioUnico(req: Request, res: Response) {
+    const id = req.params.usuarioId;
+    const params = [id];
+    UsuarioController.obtenerUnico(SQL_USUARIOS.OBTENER_USUARIO_UNICO, params, res);
+  }
 
-public obtenerTodosUsuarios(req:Request,res:Response){
-  UsuarioController.obtenerTodos(SQL_USUARIOS.OBTENER_USUARIOS,req,res);
-}
+  public obtenerTodosUsuarios(req: Request, res: Response) {
+    UsuarioController.obtenerTodos(SQL_USUARIOS.OBTENER_USUARIOS, req, res);
+  }
 
   public registrarUsuarioAcceso(req: Request, res: Response): Promise<any> {
     const nombres = req.body[0].usuarioNombres;
@@ -33,7 +33,7 @@ public obtenerTodosUsuarios(req:Request,res:Response){
       res);
   }
 
-  public actualizarUsuario(req:Request, res:Response){
+  public actualizarUsuario(req: Request, res: Response) {
     const id = req.params.usuarioId;
     const nombres = req.body.usuarioNombres;
     const apellidos = req.body.usuarioApellidos;
@@ -41,7 +41,7 @@ public obtenerTodosUsuarios(req:Request,res:Response){
     const telefono = req.body.usuarioTelefono;
     const rol = req.body.rolId;
     const params = [id, nombres, apellidos, documento, telefono, rol];
-    UsuarioController.actualizarUsuario(SQL_USUARIOS.ACTUALIZAR_USUARIO,params,res);
+    UsuarioController.actualizarUsuario(SQL_USUARIOS.ACTUALIZAR_USUARIO, params, res);
   }
 
 }
