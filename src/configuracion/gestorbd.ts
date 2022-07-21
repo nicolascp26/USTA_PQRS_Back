@@ -9,7 +9,7 @@ class GestorBD {
 
       switch (tipo) {
         case 'select':
-        respuesta.status(200).json(resultado.rows);
+          respuesta.status(200).json(resultado.rows);
           break;
       }
 

@@ -1,6 +1,6 @@
 import variables from './config';
 import pgPromise from 'pg-promise';
-import {opcionesPG} from './conexion/opcionesConexion';
+import { opcionesPG } from './conexion/opcionesConexion';
 
 const pgp = pgPromise(opcionesPG);
 const pool = pgp(variables);
