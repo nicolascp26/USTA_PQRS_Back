@@ -9,21 +9,20 @@ class AccesoControllerVerificar {
     const rutaImagenSistema = './src/imagenes/sistema/fondo_usuario_login.png';
     const rutaImagenPrivada = './src/imagenes/fotos/' + registro.imgNombreprivado;
     const token = jwt.sign({
-       'id': registro.usuarioId,
-       'correo': correo,
-     'usuarioRol':registro.rolNombre,
-   'usuarioNombres':registro.usuarioNombres},
-    'clavesupersecretagg');
+      'id': registro.usuarioId,
+      'correo': correo,
+      'usuarioRol': registro.rolNombre,
+      'usuarioNombres': registro.usuarioNombres
+    },
+      'clavesupersecretagg');
 
-console.log(registro);
     if (fs.existsSync(rutaImagenPrivada)) {
       base = fs.readFileSync(rutaImagenPrivada, 'base64');
     } else {
       base = fs.readFileSync(rutaImagenSistema, 'base64');
     }
 
-
-    res.status(200).json({ 'token': token, 'foto': base, 'rol':registro.rolNombre});
+    res.status(200).json({ 'token': token, 'foto': base, 'rol': registro.rolNombre });
   }
 }
 

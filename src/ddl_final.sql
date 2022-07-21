@@ -34,7 +34,7 @@ CREATE TABLE mensaje (
     mensaje_detalle         TEXT NOT NULL,
     mensaje_fecha           DATE NOT NULL DEFAULT CURRENT_DATE,
     mensaje_hora            TIME NOT NULL DEFAULT CURRENT_TIME(0),
-    mensaje_tipo_id         INTEGER NOT NULL
+    mensaje_tipo_id         INTEGER
 );
 
 CREATE TABLE roles (
@@ -44,6 +44,7 @@ CREATE TABLE roles (
 
 CREATE TABLE tipo (
     tipo_id      SERIAL NOT NULL PRIMARY KEY,
+    tipo_clase VARCHAR(50) NOT NULL,
     tipo_nombre  VARCHAR(200) NOT NULL
 );
 
@@ -104,3 +105,25 @@ INSERT INTO acceso (acceso_usuario_id,acceso_correo,acceso_clave) values
 
 INSERT INTO imagenes (img_usuario_id,img_nombrepublico, img_nombreprivado,img_tipo) VALUES
 	(1,'miFoto.png','oMdbjaYzO7.png','image/png');
+
+INSERT INTO tipo (tipo_nombre) values
+ ('Reclamo - Materias'),
+ ('Queja - Docentes'),
+ ('Queja - Infraestructura');
+
+ INSERT INTO mensaje (mensaje_codpadre,mensaje_id_solicita, mensaje_id_responde,mensaje_estado,mensaje_prioridad,mensaje_titulo,mensaje_detalle,mensaje_tipo_id) values
+ (null,6,1,1,1,'Abran todos los ascensores','Buenas tardes facultad, les escribo para pedirles que abran los ascensores, gracias.👀',3),
+ (1,null,null,null,null,'Re: Respuesta', 'Buenas tardes Alejandro, ASAP 😀',null),
+  (1,null,null,null,null,'Re: Respuesta', 'Gracias',null);
+
+  WITH RECURSIVE hilo_mensajes AS (
+          SELECT mensaje_id, mensaje_codpadre, mensaje_titulo, mensaje_detalle
+          FROM mensaje
+          WHERE mensaje_id = 1
+      UNION ALL
+          SELECT msj.mensaje_id, msj.mensaje_codpadre, msj.mensaje_titulo, msj.mensaje_detalle
+      	FROM mensaje msj
+  		JOIN hilo_mensajes ON msj.mensaje_codpadre = hilo_mensajes.mensaje_id
+  )
+
+  SELECT * FROM hilo_mensajes;

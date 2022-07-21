@@ -28,7 +28,7 @@ class MensajesDAO {
   protected static async registrarSolicitud(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
-        res.status(200).json({respuesta:"Solicitud registrada", resultado: resultado.rowCount});
+        res.status(200).json({ respuesta: "Solicitud registrada", resultado: resultado.rowCount });
       })
       .catch((miError: any) => {
         console.log(miError);
@@ -39,7 +39,7 @@ class MensajesDAO {
   protected static async agregarMensaje(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
-        res.status(200).json({respuesta:"Mensaje registrado", resultado: resultado.rowCount});
+        res.status(200).json({ respuesta: "Mensaje registrado", resultado: resultado.rowCount });
       })
       .catch((miError: any) => {
         console.log(miError);
@@ -50,7 +50,7 @@ class MensajesDAO {
   protected static async eliminarMensaje(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
-        res.status(200).json({respuesta:"Rol eliminado", resultado: resultado.rowCount});
+        res.status(200).json({ respuesta: "Rol eliminado", resultado: resultado.rowCount });
       })
       .catch((miError: any) => {
         console.log(miError);
