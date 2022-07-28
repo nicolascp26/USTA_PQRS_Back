@@ -6,6 +6,7 @@ class MensajesDAO {
   protected static async obtenerSolicitudes(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
+        console.log(resultado.rows);
         res.status(200).json(resultado.rows);
       })
       .catch((miError: any) => {
@@ -36,7 +37,7 @@ class MensajesDAO {
       });
   }
 
-  protected static async agregarMensaje(sql: string, parametros: any, res: Response): Promise<any> {
+  protected static async responderMensaje(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
         res.status(200).json({ respuesta: "Mensaje registrado", resultado: resultado.rowCount });
