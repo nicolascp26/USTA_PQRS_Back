@@ -4,12 +4,18 @@ import { SQL_MENSAJES } from '../../consultas/mensajes_sql';
 
 class MensajesController extends MensajesDAO {
 
-  public obtenerSolicitudes(req: Request, res: Response) {
+  public obtenerSolicitudesAdmin(req: Request, res: Response) {
     MensajesController.obtenerSolicitudes(SQL_MENSAJES.OBTENER_SOLICITUDES_ADMIN, req, res);
   }
 
+  public obtenerSolicitudesUsuario(req: Request, res: Response) {
+    MensajesController.obtenerSolicitudes(SQL_MENSAJES.OBTENER_SOLICITUDES_USUARIO, req, res);
+  }
+
   public obtenerHiloMensajes(req: Request, res: Response) {
-    MensajesController.obtenerHiloMensajes(SQL_MENSAJES.OBTENER_HILO_MENSAJES, req, res);
+    const id = req.params.mensajeId;
+    const params = [id];
+    MensajesController.obtenerHiloMensajes(SQL_MENSAJES.OBTENER_HILO_MENSAJES, params, res);
   }
 
   public registrarSolicitud(req: Request, res: Response){
@@ -17,9 +23,9 @@ class MensajesController extends MensajesDAO {
     return MensajesController.registrarSolicitud(SQL_MENSAJES.REGISTRAR_SOLICITUD,params,res);
   }
 
-  public agregarMensaje(req: Request, res: Response){
+  public responderMensaje(req: Request, res: Response){
     const params = [req.body.rolNombre];
-    return MensajesController.agregarMensaje(SQL_MENSAJES.RESPONDER_MENSAJE,params,res);
+    return MensajesController.responderMensaje(SQL_MENSAJES.RESPONDER_MENSAJE,params,res);
   }
 
 }

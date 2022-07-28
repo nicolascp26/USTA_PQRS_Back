@@ -4,6 +4,7 @@ import express from 'express';
 
 import rolRutas from './rutas/rolRutas';
 import accesoRutas from './rutas/accesoRutas';
+import mensajesRutas from './rutas/mensajesRutas';
 import usuarioRutas from './rutas/UsuarioRutas';
 import tipoRutas from './rutas/tipoRutas';
 
@@ -30,6 +31,7 @@ class Servidor {
     this.app.use('/miapi/publico/usuario', usuarioRutas);
     this.app.use('/miapi/publico/acceso', accesoRutas);
     //Rutas privadas
+    this.app.use('/miapi/privado/mensajes', mensajesRutas);
     this.app.use('/miapi/privado/role', rolRutas);
     this.app.use('/miapi/privado/tipo', tipoRutas);
   }
