@@ -11,6 +11,7 @@ class AccesoRutas {
 
   public configuracion(): void {
     this.router.post('/login', accesoController.iniciar);
+    this.router.put('/update/:usuarioId', accesoController.actualizarAcceso);
   }
 }
 const accesoRutas = new AccesoRutas();
