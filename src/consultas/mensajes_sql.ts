@@ -10,21 +10,22 @@ export const SQL_MENSAJES = {
    m.mensaje_estado,m.mensaje_prioridad,u.usuario_nombres, u.usuario_apellidos,t.tipo_clase,t.tipo_nombre \
       FROM mensaje m INNER JOIN usuario u ON u.usuario_id = m.mensaje_id_usuario \
       INNER JOIN tipo t ON t.tipo_id = m.mensaje_tipo_id\
-      AND mensaje_codpadre IS NULL",
+      AND mensaje_codpadre IS NULL\
+      LIMIT 10",
   RESPONDER_MENSAJE: " INSERT INTO mensaje (mensaje_codpadre,mensaje_id_usuario,mensaje_estado,mensaje_prioridad,mensaje_titulo,mensaje_detalle,mensaje_tipo_id) VALUES \
    ($1,$2,null,null,'Re: Respuesta',$3,null);\
    UPDATE mensaje \
    SET mensaje_estado = 2 \
    WHERE mensaje_id = $1;",
   OBTENER_HILO_MENSAJES: "WITH RECURSIVE hilo_mensajes AS (\
-    SELECT mensaje_id, mensaje_codpadre, mensaje_id_usuario, mensaje_titulo, mensaje_detalle, mensaje_fecha\
+    SELECT mensaje_id, mensaje_codpadre, mensaje_id_usuario, mensaje_estado, mensaje_titulo, mensaje_detalle, mensaje_fecha\
     FROM mensaje m INNER JOIN usuario u ON u.usuario_id = m.mensaje_id_usuario\
     WHERE mensaje_id = $1\
     UNION ALL\
-      SELECT msj.mensaje_id, msj.mensaje_codpadre, msj.mensaje_id_usuario, msj.mensaje_titulo, msj.mensaje_detalle, msj.mensaje_fecha\
+      SELECT msj.mensaje_id, msj.mensaje_codpadre, msj.mensaje_id_usuario, msj.mensaje_estado, msj.mensaje_titulo, msj.mensaje_detalle, msj.mensaje_fecha\
       FROM mensaje msj\
     	JOIN hilo_mensajes ON msj.mensaje_codpadre = hilo_mensajes.mensaje_id)\
-      SELECT hm.mensaje_id, hm.mensaje_titulo, hm.mensaje_detalle, hm.mensaje_fecha, u.usuario_nombres,u.usuario_apellidos\
+    SELECT hm.mensaje_id, hm.mensaje_estado, hm.mensaje_titulo, hm.mensaje_detalle, hm.mensaje_fecha, u.usuario_nombres,u.usuario_apellidos\
   	FROM hilo_mensajes hm INNER JOIN usuario u ON u.usuario_id = hm.mensaje_id_usuario\
     ORDER BY hm.mensaje_fecha ASC;",
   TERMINAR_SOLICITUD: "UPDATE mensaje \
