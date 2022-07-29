@@ -26,14 +26,12 @@ CREATE TABLE imagenes (
 CREATE TABLE mensaje (
     mensaje_id              SERIAL NOT NULL PRIMARY KEY,
     mensaje_codpadre        INTEGER,
-    mensaje_id_solicita     INTEGER,
-    mensaje_id_responde     INTEGER,
+    mensaje_id_usuario      INTEGER,
     mensaje_estado          INTEGER,
     mensaje_prioridad       INTEGER,
     mensaje_titulo          VARCHAR(200) NOT NULL,
     mensaje_detalle         TEXT NOT NULL,
-    mensaje_fecha           DATE NOT NULL DEFAULT CURRENT_DATE,
-    mensaje_hora            TIME NOT NULL DEFAULT CURRENT_TIME(0),
+    mensaje_fecha           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     mensaje_tipo_id         INTEGER
 );
 
@@ -111,7 +109,7 @@ INSERT INTO tipo (tipo_nombre) values
  ('Queja - Docentes'),
  ('Queja - Infraestructura');
 
- INSERT INTO mensaje (mensaje_codpadre,mensaje_id_solicita, mensaje_id_responde,mensaje_estado,mensaje_prioridad,mensaje_titulo,mensaje_detalle,mensaje_tipo_id) values
+ INSERT INTO mensaje (mensaje_codpadre,mensaje_id_usuario,mensaje_estado,mensaje_prioridad,mensaje_titulo,mensaje_detalle,mensaje_tipo_id) values
  (null,6,1,1,1,'Abran todos los ascensores','Buenas tardes facultad, les escribo para pedirles que abran los ascensores, gracias.👀',3),
  (1,null,null,null,null,'Re: Respuesta', 'Buenas tardes Alejandro, ASAP 😀',null),
   (1,null,null,null,null,'Re: Respuesta', 'Gracias',null);
