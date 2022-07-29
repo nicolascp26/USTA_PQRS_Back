@@ -6,7 +6,6 @@ class MensajesDAO {
   protected static async obtenerSolicitudes(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
-        console.log(resultado.rows);
         res.status(200).json(resultado.rows);
       })
       .catch((miError: any) => {
@@ -51,11 +50,22 @@ class MensajesDAO {
   protected static async eliminarMensaje(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
-        res.status(200).json({ respuesta: "Rol eliminado", resultado: resultado.rowCount });
+        res.status(200).json({ respuesta: "Mensaje eliminado", resultado: resultado.rowCount });
       })
       .catch((miError: any) => {
         console.log(miError);
-        res.status(400).json({ respuesta: 'Error eliminando rol' });
+        res.status(400).json({ respuesta: 'Error eliminando mensaje' });
+      });
+  }
+
+  protected static async terminarSolicitud(sql: string, parametros: any, res: Response): Promise<any> {
+    await pool.result(sql, parametros)
+      .then((resultado: any) => {
+        res.status(200).json({ respuesta: "Solicitud terminada", resultado: resultado.rowCount });
+      })
+      .catch((miError: any) => {
+        console.log(miError);
+        res.status(400).json({ respuesta: 'Error terminando solicitud' });
       });
   }
 
