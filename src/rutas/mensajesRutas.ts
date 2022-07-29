@@ -15,6 +15,7 @@ class MensajesRutas {
     this.router.get('/getMsgThread/:mensajeId',mensajesController.obtenerHiloMensajes);
     this.router.post('/sendRequest', mensajesController.registrarSolicitud);
     this.router.post('/replyMessage/:mensajeId', mensajesController.responderMensaje);
+    this.router.put('/finalizeRequest/:mensajeId', mensajesController.terminarSolicitud);
   }
 }
 const mensajesRutas = new MensajesRutas();
