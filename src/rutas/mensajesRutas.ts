@@ -11,7 +11,7 @@ class MensajesRutas {
 
   public configuracion(): void {
     this.router.get('/getAllAdmin',mensajesController.obtenerSolicitudesAdmin);
-    this.router.get('/getAllUser',mensajesController.obtenerSolicitudesUsuario);
+    this.router.get('/getAllUser/:usuarioId',mensajesController.obtenerSolicitudesUsuario);
     this.router.get('/getMsgThread/:mensajeId',mensajesController.obtenerHiloMensajes);
     this.router.post('/sendRequest', mensajesController.registrarSolicitud);
     this.router.post('/replyMessage/:mensajeId', mensajesController.responderMensaje);

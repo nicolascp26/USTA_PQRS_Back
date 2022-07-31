@@ -9,7 +9,9 @@ class MensajesController extends MensajesDAO {
   }
 
   public obtenerSolicitudesUsuario(req: Request, res: Response) {
-    MensajesController.obtenerSolicitudes(SQL_MENSAJES.OBTENER_SOLICITUDES_USUARIO, req, res);
+    const id = req.params.usuarioId;
+    const params = [id];
+    MensajesController.obtenerSolicitudes(SQL_MENSAJES.OBTENER_SOLICITUDES_USUARIO, params, res);
   }
 
   public obtenerHiloMensajes(req: Request, res: Response) {
