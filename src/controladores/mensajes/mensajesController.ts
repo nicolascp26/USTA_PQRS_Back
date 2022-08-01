@@ -20,25 +20,27 @@ class MensajesController extends MensajesDAO {
     MensajesController.obtenerHiloMensajes(SQL_MENSAJES.OBTENER_HILO_MENSAJES, params, res);
   }
 
-  public registrarSolicitud(req: Request, res: Response){
-    const id = req.params.mensajeId;
+  public registrarSolicitud(req: Request, res: Response) {
+    const usuarioId = req.body.mensajeUsuario;
+    const titulo = req.body.mensajeTitulo;
     const detalle = req.body.mensajeDetalle;
-    const params = [id, detalle];
-    return MensajesController.registrarSolicitud(SQL_MENSAJES.REGISTRAR_SOLICITUD,params,res);
+    const tipo = req.body.tipoId;
+    const params = [usuarioId,titulo, detalle, tipo];
+    return MensajesController.registrarSolicitud(SQL_MENSAJES.REGISTRAR_SOLICITUD, params, res);
   }
 
-  public responderMensaje(req: Request, res: Response){
+  public responderMensaje(req: Request, res: Response) {
     const id = req.params.mensajeId;
     const usuario = req.body.mensajeUsuario;
     const detalle = req.body.mensajeDetalle;
-    const params = [id,usuario,detalle];
-    return MensajesController.responderMensaje(SQL_MENSAJES.RESPONDER_MENSAJE,params,res);
+    const params = [id, usuario, detalle];
+    return MensajesController.responderMensaje(SQL_MENSAJES.RESPONDER_MENSAJE, params, res);
   }
 
-  public terminarSolicitud(req:Request,res:Response){
+  public terminarSolicitud(req: Request, res: Response) {
     const id = req.params.mensajeId;
     const params = [id];
-    return MensajesController.responderMensaje(SQL_MENSAJES.TERMINAR_SOLICITUD,params,res);
+    return MensajesController.responderMensaje(SQL_MENSAJES.TERMINAR_SOLICITUD, params, res);
   }
 
 }
