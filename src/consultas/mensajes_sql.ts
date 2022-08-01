@@ -1,6 +1,6 @@
 export const SQL_MENSAJES = {
   REGISTRAR_SOLICITUD: "INSERT INTO mensaje (mensaje_codpadre,mensaje_id_usuario,mensaje_estado,mensaje_prioridad,mensaje_titulo,mensaje_detalle,mensaje_tipo_id) VALUES \
-  (null,$1,$2,1,1,$3,$4,$5) \
+  (null,$1,1,1,$2,$3,$4) \
   RETURNING mensaje_id",
   OBTENER_SOLICITUDES_USUARIO: "SELECT m.mensaje_id, m.mensaje_titulo, m.mensaje_detalle,m.mensaje_fecha, \
     m.mensaje_estado,t.tipo_clase,t.tipo_nombre \
