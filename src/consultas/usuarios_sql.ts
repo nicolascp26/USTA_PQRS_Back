@@ -10,5 +10,10 @@ export const SQL_USUARIOS = {
   SET usuario_nombres = $2, usuario_apellidos= $3, usuario_documento= $4, usuario_telefono = $5, usuario_rol = $6\
   WHERE usuario_id=$1\
   RETURNING *;',
-  ELIMINAR_USUARIO: 'DELETE FROM usuarios WHERE usuarios_id = $1'
+  ELIMINAR_USUARIO: 'DELETE FROM usuarios WHERE usuarios_id = $1',
+  STATS_ADMIN: 'SELECT mensaje_estado,count(mensaje_id) as mensaje_cant\
+  FROM mensaje\
+  WHERE mensaje_codpadre IS NULL\
+  GROUP BY mensaje_estado\
+  ORDER BY mensaje_estado;'
 }
