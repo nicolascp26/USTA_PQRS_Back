@@ -7,6 +7,7 @@ import accesoRutas from './rutas/accesoRutas';
 import mensajesRutas from './rutas/mensajesRutas';
 import usuarioRutas from './rutas/UsuarioRutas';
 import tipoRutas from './rutas/tipoRutas';
+import preguntaRutas from './rutas/preguntaRutas';
 
 class Servidor {
 
@@ -34,6 +35,7 @@ class Servidor {
     this.app.use('/miapi/privado/mensajes', mensajesRutas);
     this.app.use('/miapi/privado/role', rolRutas);
     this.app.use('/miapi/privado/tipo', tipoRutas);
+    this.app.use('/miapi/privado/preguntas', preguntaRutas);
   }
 
   public iniciar(): void {
