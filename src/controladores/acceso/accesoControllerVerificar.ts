@@ -7,7 +7,7 @@ class AccesoControllerVerificar {
   public static async procesarRespuesta(registro: any, correo: string, res: Response): Promise<any> {
     let base = '';
     const rutaImagenSistema = './src/imagenes/sistema/fondo_usuario_login.png';
-    const rutaImagenPrivada = './src/imagenes/fotos/' + registro.imgNombreprivado;
+    const rutaImagenPrivada = './src/imagenes/fotos/' + registro.imgNombrePrivado;
     const token = jwt.sign({
       'id': registro.usuarioId,
       'correo': correo,

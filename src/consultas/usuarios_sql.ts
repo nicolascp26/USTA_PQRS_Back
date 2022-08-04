@@ -25,5 +25,9 @@ export const SQL_USUARIOS = {
   FROM mensaje\
   WHERE mensaje_codpadre IS NULL\
   GROUP BY mensaje_estado\
-  ORDER BY mensaje_estado;'
+  ORDER BY mensaje_estado;',
+  ACTUALIZAR_IMAGEN: 'UPDATE imagenes\
+  SET img_nombre_publico = $2, img_nombre_privado= $3, img_tipo= $4\
+  WHERE img_usuario_id=$1\
+  RETURNING *;',
 }

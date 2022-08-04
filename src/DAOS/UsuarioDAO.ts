@@ -75,12 +75,23 @@ class UsuarioDAO {
   protected static async eliminarUsuario(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
-        console.log(resultado);
         res.status(200).json({ respuesta: "Usuario eliminado", resultado: resultado.rowCount });
       })
       .catch((miError: any) => {
         console.log(miError);
         res.status(400).json({ respuesta: 'Error eliminando usuario' });
+      });
+  }
+
+  protected static async actualizarImagen(sql: string, parametros: any, res: Response): Promise<any> {
+    await pool.task(async consulta => {
+      return await consulta.one(sql, parametros);
+    }).then((resultado: any) => {
+      res.status(200).json(resultado.rows);
+    })
+      .catch((miError: any) => {
+        console.log(miError);
+        res.status(400).json({ respuesta: 'Error en la consulta' });
       });
   }
 }
