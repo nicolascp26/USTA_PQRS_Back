@@ -18,8 +18,8 @@ CREATE TABLE anexos (
 CREATE TABLE imagenes (
     img_id              SERIAL NOT NULL PRIMARY KEY,
     img_usuario_id  INTEGER NOT NULL,
-    img_nombrepublico   VARCHAR(200),
-    img_nombreprivado   VARCHAR(200),
+    img_nombre_publico   VARCHAR(200),
+    img_nombre_privado   VARCHAR(200),
     img_tipo            VARCHAR(50)
 );
 

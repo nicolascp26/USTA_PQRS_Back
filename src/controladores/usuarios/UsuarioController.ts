@@ -3,6 +3,8 @@ import UsuarioDAO from '../../DAOS/UsuarioDAO';
 import nanoid from 'nanoid';
 import { SQL_REGISTRO } from '../../consultas/registro_sql';
 import { SQL_USUARIOS } from '../../consultas/usuarios_sql';
+import { SQL_IMAGENES } from '../../consultas/imagenes_sql';
+import UsuarioImagenController from '../usuarios/usuarioImagenController';
 
 class UsuarioController extends UsuarioDAO {
 
@@ -48,6 +50,21 @@ class UsuarioController extends UsuarioDAO {
     const id = req.params.usuarioId;
     const params = [id];
     UsuarioController.actualizarUsuario(SQL_USUARIOS.ELIMINAR_USUARIO, params, res);
+  }
+
+  public agregarImagen(req: Request, res: Response) {
+    console.log(req.body);
+    if (req.body.base64 != '') {
+      const id = req.body.imgUsuarioId;
+      const imgNombrePublico = req.body.imgNombrePublico;
+      const ext = imgNombrePublico.split('.').pop();
+      const imgNombrePrivado = 'IU_' + nanoid.nanoid(10) + '.' + ext;
+      const imgTipo = req.body.imgTipo;
+      const base64 = req.body.base64;
+      const params = [id, imgNombrePublico, imgNombrePrivado, imgTipo];
+      UsuarioController.actualizarImagen(SQL_IMAGENES.CREAR_IMAGEN, params, res);
+      UsuarioImagenController.procesarImagen(base64, imgNombrePrivado, res);
+    }else res.status(400).json({ respuesta: 'El base64 esta vacio' });
   }
 
 }

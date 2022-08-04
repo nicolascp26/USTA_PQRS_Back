@@ -8,6 +8,7 @@ import mensajesRutas from './rutas/mensajesRutas';
 import usuarioRutas from './rutas/UsuarioRutas';
 import tipoRutas from './rutas/tipoRutas';
 import preguntaRutas from './rutas/preguntaRutas';
+import imagenesRutas from './rutas/imagenesRutas';
 
 class Servidor {
 
@@ -36,6 +37,7 @@ class Servidor {
     this.app.use('/miapi/privado/role', rolRutas);
     this.app.use('/miapi/privado/tipo', tipoRutas);
     this.app.use('/miapi/privado/preguntas', preguntaRutas);
+    this.app.use('/miapi/privado/imagenes', imagenesRutas);
   }
 
   public iniciar(): void {
