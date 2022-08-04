@@ -44,6 +44,12 @@ class UsuarioController extends UsuarioDAO {
     UsuarioController.actualizarUsuario(SQL_USUARIOS.ACTUALIZAR_USUARIO, params, res);
   }
 
+  public eliminarUsuario(req: Request, res: Response) {
+    const id = req.params.usuarioId;
+    const params = [id];
+    UsuarioController.actualizarUsuario(SQL_USUARIOS.ELIMINAR_USUARIO, params, res);
+  }
+
 }
 const usuarioController = new UsuarioController();
 export default usuarioController;

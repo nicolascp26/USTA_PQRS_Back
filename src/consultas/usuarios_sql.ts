@@ -10,7 +10,17 @@ export const SQL_USUARIOS = {
   SET usuario_nombres = $2, usuario_apellidos= $3, usuario_documento= $4, usuario_telefono = $5, usuario_rol = $6\
   WHERE usuario_id=$1\
   RETURNING *;',
-  ELIMINAR_USUARIO: 'DELETE FROM usuarios WHERE usuarios_id = $1',
+  ELIMINAR_USUARIO: 'DELETE FROM acceso WHERE acceso_usuario_id = $1;\
+  WITH RECURSIVE hilo_mensajes AS (\
+    SELECT m.mensaje_id\
+    FROM mensaje m INNER JOIN usuario u ON u.usuario_id = m.mensaje_id_usuario\
+	WHERE m.mensaje_id_usuario = $1\
+    UNION ALL\
+      SELECT msj.mensaje_id\
+      FROM mensaje msj\
+    	JOIN hilo_mensajes ON msj.mensaje_codpadre = hilo_mensajes.mensaje_id)\
+	DELETE FROM mensaje WHERE mensaje_id IN (SELECT mensaje_id FROM hilo_mensajes );\
+  DELETE FROM usuario WHERE usuario_id = $1 RETURNING usuario_id;',
   STATS_ADMIN: 'SELECT mensaje_estado,count(mensaje_id) as mensaje_cant\
   FROM mensaje\
   WHERE mensaje_codpadre IS NULL\
