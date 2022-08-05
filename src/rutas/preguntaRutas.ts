@@ -9,7 +9,8 @@ class PreguntaRutas {
     this.todasLasRutas();
   }
   public todasLasRutas(): void {
-    this.router.get('/getAll', preguntaController.obtenerTodosPreguntaes);
+    this.router.get('/getAll', preguntaController.obtenerTodasPreguntas);
+    this.router.get('/getSingle/:prefId', preguntaController.obtenerPreguntaUnica);
     this.router.delete('/delete/:prefId', preguntaController.eliminarPregunta);
     this.router.post('/create', preguntaController.crearPregunta);
     this.router.put('/update/:prefId', preguntaController.actualizarPregunta);

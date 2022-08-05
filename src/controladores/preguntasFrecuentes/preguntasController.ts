@@ -4,8 +4,14 @@ import { SQL_PREGUNTAS_FRECUENTES } from '../../consultas/preguntas_frecuentes';
 
 class PreguntaController extends PreguntaDAO {
 
-  public obtenerTodosPreguntaes(req: Request, res: Response) {
+  public obtenerTodasPreguntas(req: Request, res: Response) {
     PreguntaController.obtenerTodas(SQL_PREGUNTAS_FRECUENTES.OBTENER_PREGUNTAS, req, res);
+  }
+
+  public obtenerPreguntaUnica(req: Request, res: Response) {
+    const id = req.params.prefId;
+    const params = [id];
+    PreguntaController.obtenerUnica(SQL_PREGUNTAS_FRECUENTES.OBTENER_PREGUNTA_UNICA, params, res);
   }
 
   public crearPregunta(req: Request, res: Response) {
