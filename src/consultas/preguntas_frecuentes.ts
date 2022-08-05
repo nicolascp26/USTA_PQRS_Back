@@ -2,6 +2,10 @@ export const SQL_PREGUNTAS_FRECUENTES = {
   OBTENER_PREGUNTAS: 'SELECT pref_id, pref_titulo, pref_detalle \
   FROM preguntas_frecuentes',
 
+  OBTENER_PREGUNTA_UNICA: 'SELECT pref_id, pref_titulo, pref_detalle \
+  FROM preguntas_frecuentes\
+  WHERE pref_id = $1',
+
   CREAR_PREGUNTA: "INSERT INTO preguntas_frecuentes (pref_titulo,pref_detalle) \
   VALUES ($1,$2)",
 
