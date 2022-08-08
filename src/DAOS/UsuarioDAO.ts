@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import pool from '../configuracion/conexion';
 import { SQL_ACCESO } from '../consultas/acceso_sql';
+import UsuarioImagenController from '../controladores/usuarios/usuarioImagenController';
 
 class UsuarioDAO {
 
@@ -34,7 +35,6 @@ class UsuarioDAO {
       const correoVerificar = parametros[3];
       const correo = await consulta.one(sqlVerificarCorreo, correoVerificar);
       if (correo.count == 0) {
-        console.log(parametros);
         const codUsuario = await consulta.one(sqlCrearUsuario, parametros);
         let acceso = [];
         acceso.push(parametros[3]);
@@ -83,9 +83,18 @@ class UsuarioDAO {
       });
   }
 
-  protected static async actualizarImagen(sql: string, parametros: any, res: Response): Promise<any> {
+  protected static async actualizarImagen(sqlCrear: string, sqlVerificar: string, sqlEliminar: string, parametros: any, res: Response): Promise<any> {
     await pool.task(async consulta => {
-      return await consulta.one(sql, parametros);
+      const imgExiste = await consulta.one(sqlVerificar, parametros[0]);
+      if (imgExiste.count != 0) {
+        const imgPriv = await consulta.one(sqlEliminar, parametros[0]);
+        UsuarioImagenController.eliminarImagen(imgPriv.imgNombrePrivado);
+        UsuarioImagenController.procesarImagen(parametros[4], parametros[2], res);
+        return await consulta.one(sqlCrear, parametros);
+      } else {
+        UsuarioImagenController.procesarImagen(parametros[4], parametros[2], res);
+        return await consulta.one(sqlCrear, parametros);
+      }
     }).then((resultado: any) => {
       res.status(200).json(resultado.rows);
     })
