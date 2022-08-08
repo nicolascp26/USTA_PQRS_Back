@@ -14,6 +14,16 @@ class UsuarioImagenController {
     }
     res.status(200).json({ 'respuesta': 'Imagen guardada con exito' });
   }
+
+  public static eliminarImagen(imgNombre: string): void {
+    const rutaImagenPrivada = './src/imagenes/fotos/' + imgNombre;
+    console.log(rutaImagenPrivada);
+    if (fs.existsSync(rutaImagenPrivada)) {
+      fs.unlinkSync(rutaImagenPrivada);
+    } else {
+      return;
+    }
+  }
 }
 
 export default UsuarioImagenController;
