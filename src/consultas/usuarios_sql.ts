@@ -10,7 +10,8 @@ export const SQL_USUARIOS = {
   SET usuario_nombres = $2, usuario_apellidos= $3, usuario_documento= $4, usuario_telefono = $5, usuario_rol = $6\
   WHERE usuario_id=$1\
   RETURNING *;',
-  ELIMINAR_USUARIO: 'DELETE FROM acceso WHERE acceso_usuario_id = $1;\
+  ELIMINAR_USUARIO: 'DELETE FROM imagenes WHERE img_usuario_id=$1;\
+  DELETE FROM acceso WHERE acceso_usuario_id = $1;\
   WITH RECURSIVE hilo_mensajes AS (\
     SELECT m.mensaje_id\
     FROM mensaje m INNER JOIN usuario u ON u.usuario_id = m.mensaje_id_usuario\
@@ -21,13 +22,11 @@ export const SQL_USUARIOS = {
     	JOIN hilo_mensajes ON msj.mensaje_codpadre = hilo_mensajes.mensaje_id)\
 	DELETE FROM mensaje WHERE mensaje_id IN (SELECT mensaje_id FROM hilo_mensajes );\
   DELETE FROM usuario WHERE usuario_id = $1 RETURNING usuario_id;',
-  STATS_ADMIN: 'SELECT mensaje_estado,count(mensaje_id) as mensaje_cant\
-  FROM mensaje\
-  WHERE mensaje_codpadre IS NULL\
-  GROUP BY mensaje_estado\
-  ORDER BY mensaje_estado;',
-  ACTUALIZAR_IMAGEN: 'UPDATE imagenes\
-  SET img_nombre_publico = $2, img_nombre_privado= $3, img_tipo= $4\
-  WHERE img_usuario_id=$1\
-  RETURNING *;',
+  STATS_ADMIN: 'SELECT DISTINCT \
+(SELECT count(usuario_id) FROM usuario) as activos,\
+(SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=1) as nuevos,\
+(SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=2) as progreso,\
+(SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=3) as terminados,\
+(SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL) as totales \
+FROM mensaje',
 }
