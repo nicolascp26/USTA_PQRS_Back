@@ -64,6 +64,10 @@ class UsuarioController extends UsuarioDAO {
     } else res.status(400).json({ respuesta: 'El base64 esta vacio' });
   }
 
+  public obtenerEstadisticas(req: Request, res: Response) {
+    UsuarioController.obtenerEstadisticas(SQL_USUARIOS.STATS_ADMIN, req, res);
+  }
+
 }
 const usuarioController = new UsuarioController();
 export default usuarioController;

@@ -13,6 +13,7 @@ class UsuarioRutas {
     this.router.get('/getSingle/:usuarioId', usuarioController.obtenerUsuarioUnico);
     this.router.put('/update/:usuarioId', usuarioController.actualizarUsuario);
     this.router.delete('/delete/:usuarioId', usuarioController.eliminarUsuario);
+    this.router.get('/getStats',usuarioController.obtenerEstadisticas);
   }
 }
 
