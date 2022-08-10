@@ -14,6 +14,7 @@ class UsuarioRutas {
     this.router.put('/update/:usuarioId', usuarioController.actualizarUsuario);
     this.router.delete('/delete/:usuarioId', usuarioController.eliminarUsuario);
     this.router.get('/getStats',usuarioController.obtenerEstadisticas);
+    this.router.get('/getStats/:usuarioId',usuarioController.obtenerEstadisticasUsuario);
   }
 }
 

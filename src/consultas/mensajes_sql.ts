@@ -6,7 +6,8 @@ export const SQL_MENSAJES = {
     m.mensaje_estado,t.tipo_clase,t.tipo_nombre \
     FROM mensaje m INNER JOIN tipo t ON t.tipo_id = m.mensaje_tipo_id\
     WHERE mensaje_id_usuario = $1 \
-    AND mensaje_codpadre IS NULL",
+    AND mensaje_codpadre IS NULL\
+    ORDER BY m.mensaje_fecha DESC",
   OBTENER_SOLICITUDES_ADMIN: "SELECT m.mensaje_id, m.mensaje_titulo, m.mensaje_detalle, m.mensaje_fecha, \
    m.mensaje_estado,m.mensaje_prioridad,u.usuario_nombres, u.usuario_apellidos,t.tipo_clase,t.tipo_nombre \
       FROM mensaje m INNER JOIN usuario u ON u.usuario_id = m.mensaje_id_usuario \
