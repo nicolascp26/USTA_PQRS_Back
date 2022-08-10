@@ -105,6 +105,17 @@ class UsuarioDAO {
   }
 
   protected static async obtenerEstadisticas(sql: string, parametros: any, res: Response): Promise<any> {
+    await pool.result(sql, parametros)
+      .then((resultado: any) => {
+        res.status(200).json(resultado.rows[0]);
+      })
+      .catch((miError: any) => {
+        console.log(miError);
+        res.status(400).json({ respuesta: 'Error en la consulta' });
+      });
+  }
+
+  protected static async obtenerEstadisticasUsuario(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.task(async consulta => {
       return await consulta.result(sql,parametros);
     }).then((resultado: any) => {

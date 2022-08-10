@@ -23,14 +23,14 @@ class UsuarioController extends UsuarioDAO {
     const documento = 'DOC_' + nanoid.nanoid(12);
     const correo = req.body[1].correoUsuario;
     const clave = req.body[1].claveUsuario;
-    const parametros = [nombres, apellidos, documento, correo, clave];
+    const params = [nombres, apellidos, documento, correo, clave];
     console.log(req.body);
     return UsuarioController.registrarUsuario(
       SQL_REGISTRO.VERIFICAR_CORREO_UNICO,
       SQL_REGISTRO.REGISTRAR_USUARIO,
       SQL_REGISTRO.REGISTRAR_ACCESO,
       SQL_REGISTRO.TODO_LISTO,
-      parametros,
+      params,
       res);
   }
 
@@ -66,6 +66,11 @@ class UsuarioController extends UsuarioDAO {
 
   public obtenerEstadisticas(req: Request, res: Response) {
     UsuarioController.obtenerEstadisticas(SQL_USUARIOS.STATS_ADMIN, req, res);
+  }
+  public obtenerEstadisticasUsuario(req: Request, res: Response) {
+    const id = req.params.usuarioId;
+    const params = [id];
+    UsuarioController.obtenerEstadisticasUsuario(SQL_USUARIOS.STATS_USER, params, res);
   }
 
 }
