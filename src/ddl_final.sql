@@ -4,9 +4,6 @@ CREATE TABLE acceso (
     acceso_clave        VARCHAR(150) NOT NULL
 );
 
-ALTER TABLE acceso
-ADD CONSTRAINT constraint_name UNIQUE (acceso_correo);
-
 CREATE TABLE anexos (
     anexo_id             SERIAL NOT NULL PRIMARY KEY,
     anexo_mensaje_id       INTEGER NOT NULL,
@@ -63,6 +60,9 @@ CREATE TABLE preguntas_frecuentes (
 );
 
 ALTER TABLE acceso
+ADD CONSTRAINT constraint_name UNIQUE (acceso_correo);
+
+ALTER TABLE acceso
     ADD CONSTRAINT acceso_usuario_fk FOREIGN KEY ( acceso_usuario_id )
         REFERENCES usuario ( usuario_id );
 
@@ -79,11 +79,7 @@ ALTER TABLE mensaje
         REFERENCES mensaje ( mensaje_id );
 
 ALTER TABLE mensaje
-    ADD CONSTRAINT mensaje_usuario_solicita_fk FOREIGN KEY ( mensaje_id_solicita )
-        REFERENCES usuario ( usuario_id );
-
-ALTER TABLE mensaje
-    ADD CONSTRAINT mensaje_usuario_responde_fk FOREIGN KEY ( mensaje_id_responde )
+    ADD CONSTRAINT mensaje_usuario_solicita_fk FOREIGN KEY ( mensaje_id_usuario )
         REFERENCES usuario ( usuario_id );
 
 ALTER TABLE mensaje
@@ -95,7 +91,7 @@ ALTER TABLE usuario
         REFERENCES roles ( rol_id );
 
 
-------------------DML--------------------
+------------------DML OBLIGATORIO--------------------
 
 INSERT INTO roles (rol_nombre) values
  ('Administrador'),
@@ -107,5 +103,6 @@ INSERT INTO usuario (usuario_nombres, usuario_apellidos,usuario_documento,usuari
 INSERT INTO acceso (acceso_usuario_id,acceso_correo,acceso_clave) values
  (1,'decsistemas@ustatunja.edu.co', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413');
 
+---OPTIONAL----
 INSERT INTO imagenes (img_usuario_id,img_nombrepublico, img_nombreprivado,img_tipo) VALUES
 	(1,'miFoto.png','oMdbjaYzO7.png','image/png');
