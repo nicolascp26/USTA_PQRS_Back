@@ -25,14 +25,14 @@ class AccesoDAO {
     );
   }
 
-  protected static async actualizarAcceso(sqlActualizarAcceso: string, sqlVerificarCorreo: string, parametros: any, res: Response): Promise<any> {
+  protected static async actualizarClave(sqlVerificarClave: string, sqlActualizarClave: string, parametros: any, res: Response): Promise<any> {
     await pool.task(async consulta => {
-      const correoVerificar = parametros[1];
-      console.log(parametros[1]);
-      const correo = await consulta.one(sqlVerificarCorreo, correoVerificar);
-      if (correo.count == 0) {
-      return await consulta.one(sqlActualizarAcceso, parametros);
-    }
+      const claveActual = parametros[1];
+      let verificacion = await consulta.result(sqlVerificarClave, parametros[0]);
+      verificacion = verificacion.rows[0].accesoClave;
+      if (claveActual == verificacion) {
+        return await consulta.result(sqlActualizarClave, parametros);
+      }
     }).then((resultado: any) => {
       res.status(200).json(resultado.rows);
     })
