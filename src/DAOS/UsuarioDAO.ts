@@ -9,7 +9,7 @@ class UsuarioDAO {
   protected static async obtenerTodos(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
-        res.status(200).json(resultado.rows);
+        res.status(200).json({'usuarios':resultado.rows,'count':resultado.rows.length});
       })
       .catch((miError: any) => {
         console.log(miError);
