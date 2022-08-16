@@ -28,7 +28,7 @@ export const SQL_MENSAJES = {
       SELECT msj.mensaje_id, msj.mensaje_codpadre, msj.mensaje_id_usuario, msj.mensaje_estado, msj.mensaje_titulo, msj.mensaje_detalle, msj.mensaje_fecha\
       FROM mensaje msj\
     	JOIN hilo_mensajes ON msj.mensaje_codpadre = hilo_mensajes.mensaje_id)\
-    SELECT hm.mensaje_id, hm.mensaje_estado, hm.mensaje_titulo, hm.mensaje_detalle, hm.mensaje_fecha, u.usuario_nombres,u.usuario_apellidos\
+    SELECT hm.mensaje_id, hm.mensaje_estado, hm.mensaje_titulo, hm.mensaje_detalle, hm.mensaje_fecha, u.usuario_nombres,u.usuario_apellidos,hm.mensaje_id_usuario\
   	FROM hilo_mensajes hm INNER JOIN usuario u ON u.usuario_id = hm.mensaje_id_usuario\
     ORDER BY hm.mensaje_fecha ASC;",
   TERMINAR_SOLICITUD: "UPDATE mensaje \
