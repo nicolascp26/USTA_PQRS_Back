@@ -13,8 +13,7 @@ export const SQL_MENSAJES = {
       FROM mensaje m INNER JOIN usuario u ON u.usuario_id = m.mensaje_id_usuario \
       INNER JOIN tipo t ON t.tipo_id = m.mensaje_tipo_id\
       AND mensaje_codpadre IS NULL\
-      ORDER BY m.mensaje_estado\
-      LIMIT 10",
+      ORDER BY m.mensaje_fecha DESC;",
   RESPONDER_MENSAJE: " INSERT INTO mensaje (mensaje_codpadre,mensaje_id_usuario,mensaje_estado,mensaje_prioridad,mensaje_titulo,mensaje_detalle,mensaje_tipo_id) VALUES \
    ($1,$2,null,null,'Re: Respuesta',$3,null);\
    UPDATE mensaje \
@@ -33,5 +32,8 @@ export const SQL_MENSAJES = {
     ORDER BY hm.mensaje_fecha ASC;",
   TERMINAR_SOLICITUD: "UPDATE mensaje \
     SET mensaje_estado = 3 \
+    WHERE mensaje_id = $1;",
+  REABRIR_SOLICITUD: "UPDATE mensaje \
+    SET mensaje_estado = 2 \
     WHERE mensaje_id = $1;"
 }

@@ -58,14 +58,14 @@ class MensajesDAO {
       });
   }
 
-  protected static async terminarSolicitud(sql: string, parametros: any, res: Response): Promise<any> {
+  protected static async modificarEstadoSolicitud(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
-        res.status(200).json({ respuesta: "Solicitud terminada", resultado: resultado.rowCount });
+        res.status(200).json({ respuesta: "Solicitud modificada", resultado: resultado.rowCount });
       })
       .catch((miError: any) => {
         console.log(miError);
-        res.status(400).json({ respuesta: 'Error terminando solicitud' });
+        res.status(400).json({ respuesta: 'Error modificando solicitud' });
       });
   }
 

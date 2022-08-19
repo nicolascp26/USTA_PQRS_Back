@@ -94,8 +94,7 @@ ALTER TABLE usuario
 ------------------DML OBLIGATORIO--------------------
 
 INSERT INTO roles (rol_nombre) values
- ('Administrador'),
- ('Estudiante');
+ ('Administrador'),('Estudiante'),('Docente'),('Invitado');
 
 INSERT INTO usuario (usuario_nombres, usuario_apellidos,usuario_documento,usuario_telefono,usuario_rol,usuario_estado) values
  ('Luz Elena', 'Gutierrez','12346789','3115550000',1,1);
