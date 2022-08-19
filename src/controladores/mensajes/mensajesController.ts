@@ -40,7 +40,13 @@ class MensajesController extends MensajesDAO {
   public terminarSolicitud(req: Request, res: Response) {
     const id = req.params.mensajeId;
     const params = [id];
-    return MensajesController.responderMensaje(SQL_MENSAJES.TERMINAR_SOLICITUD, params, res);
+    return MensajesController.modificarEstadoSolicitud(SQL_MENSAJES.TERMINAR_SOLICITUD, params, res);
+  }
+
+  public reabrirSolicitud(req: Request, res: Response) {
+    const id = req.params.mensajeId;
+    const params = [id];
+    return MensajesController.modificarEstadoSolicitud(SQL_MENSAJES.REABRIR_SOLICITUD, params, res);
   }
 
 }

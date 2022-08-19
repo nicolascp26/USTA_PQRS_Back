@@ -14,7 +14,9 @@ class AccesoControllerVerificar {
       'usuarioRol': registro.rolNombre,
       'usuarioNombres': registro.usuarioNombres
     },
-      'clavesupersecretagg');
+      'clavesupersecretagg', {
+        expiresIn: '600s'
+      });
 
     if (fs.existsSync(rutaImagenPrivada)) {
       base = fs.readFileSync(rutaImagenPrivada, 'base64');
