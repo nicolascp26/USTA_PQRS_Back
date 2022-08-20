@@ -15,9 +15,9 @@ export const SQL_MENSAJES = {
       AND mensaje_codpadre IS NULL\
       ORDER BY m.mensaje_actualizado DESC;",
   RESPONDER_MENSAJE: " INSERT INTO mensaje (mensaje_codpadre,mensaje_id_usuario,mensaje_estado,mensaje_actualizado,mensaje_titulo,mensaje_detalle,mensaje_tipo_id) VALUES \
-   ($1,$2,null,null,'Re: Respuesta',$3,null);\
+   ($1,$2,null,null,'Re: Respuesta',$4,null);\
    UPDATE mensaje \
-   SET mensaje_estado = 2 \
+   SET mensaje_estado = $3 \
    WHERE mensaje_id = $1;\
    UPDATE mensaje \
    SET mensaje_actualizado = current_timestamp(0) \
@@ -34,9 +34,9 @@ export const SQL_MENSAJES = {
   	FROM hilo_mensajes hm INNER JOIN usuario u ON u.usuario_id = hm.mensaje_id_usuario\
     ORDER BY hm.mensaje_fecha ASC;",
   TERMINAR_SOLICITUD: "UPDATE mensaje \
-    SET mensaje_estado = 3 \
+    SET mensaje_estado = 4 \
     WHERE mensaje_id = $1;",
   REABRIR_SOLICITUD: "UPDATE mensaje \
-    SET mensaje_estado = 2 \
+    SET mensaje_estado = 3 \
     WHERE mensaje_id = $1;"
 }

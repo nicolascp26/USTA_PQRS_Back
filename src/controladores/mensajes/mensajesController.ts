@@ -32,8 +32,9 @@ class MensajesController extends MensajesDAO {
   public responderMensaje(req: Request, res: Response) {
     const id = req.params.mensajeId;
     const usuario = req.body.mensajeUsuario;
+    const estado = req.body.mensajeEstado;
     const detalle = req.body.mensajeDetalle;
-    const params = [id, usuario, detalle];
+    const params = [id, usuario, estado, detalle];
     return MensajesController.responderMensaje(SQL_MENSAJES.RESPONDER_MENSAJE, params, res);
   }
 
