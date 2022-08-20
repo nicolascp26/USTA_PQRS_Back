@@ -25,10 +25,10 @@ CREATE TABLE mensaje (
     mensaje_codpadre        INTEGER,
     mensaje_id_usuario      INTEGER,
     mensaje_estado          INTEGER,
-    mensaje_prioridad       INTEGER,
     mensaje_titulo          VARCHAR(200) NOT NULL,
     mensaje_detalle         TEXT NOT NULL,
     mensaje_fecha           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    mensaje_actualizado     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     mensaje_tipo_id         INTEGER
 );
 
