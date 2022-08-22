@@ -25,16 +25,18 @@ class MensajesController extends MensajesDAO {
     const titulo = req.body.mensajeTitulo;
     const detalle = req.body.mensajeDetalle;
     const tipo = req.body.tipoId;
-    const params = [usuarioId,titulo, detalle, tipo];
+    const params = [usuarioId, titulo, detalle, tipo];
     return MensajesController.registrarSolicitud(SQL_MENSAJES.REGISTRAR_SOLICITUD, params, res);
   }
 
   public responderMensaje(req: Request, res: Response) {
+    let titulo = req.body.mensajeTitulo;
+    if (titulo == '') { titulo = 'Re: Respuesta' };
     const id = req.params.mensajeId;
     const usuario = req.body.mensajeUsuario;
     const estado = req.body.mensajeEstado;
     const detalle = req.body.mensajeDetalle;
-    const params = [id, usuario, estado, detalle];
+    const params = [id, usuario, estado, titulo, detalle];
     return MensajesController.responderMensaje(SQL_MENSAJES.RESPONDER_MENSAJE, params, res);
   }
 
