@@ -32,7 +32,7 @@ export const SQL_USUARIOS = {
 FROM mensaje',
 STATS_USER: 'SELECT DISTINCT \
 (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=1 AND mensaje_id_usuario = $1) as nuevos,\
-(SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=2 OR mensaje_estado=3 AND mensaje_id_usuario = $1) as progreso,\
+(SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND (mensaje_estado=2 OR mensaje_estado=3) AND mensaje_id_usuario = $1) as progreso,\
 (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=4 AND mensaje_id_usuario = $1) as terminados,\
 (SELECT count(mensaje_id_usuario) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_id_usuario = $1) as totales \
 FROM mensaje',
