@@ -15,7 +15,7 @@ export const SQL_MENSAJES = {
       AND mensaje_codpadre IS NULL\
       ORDER BY m.mensaje_actualizado DESC;",
   RESPONDER_MENSAJE: " INSERT INTO mensaje (mensaje_codpadre,mensaje_id_usuario,mensaje_estado,mensaje_actualizado,mensaje_titulo,mensaje_detalle,mensaje_tipo_id) VALUES \
-   ($1,$2,null,null,'Re: Respuesta',$4,null);\
+   ($1,$2,null,null,$4,$5,null);\
    UPDATE mensaje \
    SET mensaje_estado = $3 \
    WHERE mensaje_id = $1;\
