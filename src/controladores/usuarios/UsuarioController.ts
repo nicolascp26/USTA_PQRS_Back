@@ -56,7 +56,7 @@ class UsuarioController extends UsuarioDAO {
       const id = req.body.imgUsuarioId;
       const imgNombrePublico = req.body.imgNombrePublico;
       const ext = imgNombrePublico.split('.').pop();
-      const imgNombrePrivado = 'IU_' + nanoid.nanoid(10) + '.' + ext;
+      const imgNombrePrivado = 'IU_' + Date.now() + '.' + ext;
       const imgTipo = req.body.imgTipo;
       const base64 = req.body.base64;
       const params = [id, imgNombrePublico, imgNombrePrivado, imgTipo, base64];

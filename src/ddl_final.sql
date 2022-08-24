@@ -7,8 +7,8 @@ CREATE TABLE acceso (
 CREATE TABLE anexos (
     anexo_id             SERIAL NOT NULL PRIMARY KEY,
     anexo_mensaje_id       INTEGER NOT NULL,
-    anexo_nombrepublico  VARCHAR(200),
-    anexo_nombreprivado  VARCHAR(200),
+    anexo_nombre_publico  VARCHAR(200),
+    anexo_nombre_privado  VARCHAR(200),
     anexo_tipo           VARCHAR(50)
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE mensaje (
     mensaje_titulo          VARCHAR(200) NOT NULL,
     mensaje_detalle         TEXT NOT NULL,
     mensaje_fecha           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-    mensaje_actualizado     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    mensaje_actualizado     TIMESTAMP DEFAULT CURRENT_TIMESTAMP(0),
     mensaje_tipo_id         INTEGER
 );
 
