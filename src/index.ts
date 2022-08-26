@@ -25,6 +25,7 @@ class Servidor {
     this.app.set('PORT', 8097);
     this.app.use(cors());
     this.app.use(morgan('dev'));
+    this.app.use(express.static('src/public/anexos'));
     this.app.use(express.json({ limit: '20mb' }));
     this.app.use(express.urlencoded({ extended: true }));
   }
