@@ -7,8 +7,8 @@ CREATE TABLE acceso (
 CREATE TABLE anexos (
     anexo_id             SERIAL NOT NULL PRIMARY KEY,
     anexo_mensaje_id       INTEGER NOT NULL,
-    anexo_nombrepublico  VARCHAR(200),
-    anexo_nombreprivado  VARCHAR(200),
+    anexo_nombre_publico  VARCHAR(200),
+    anexo_nombre_privado  VARCHAR(200),
     anexo_tipo           VARCHAR(50)
 );
 

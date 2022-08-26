@@ -9,6 +9,7 @@ import usuarioRutas from './rutas/UsuarioRutas';
 import tipoRutas from './rutas/tipoRutas';
 import preguntaRutas from './rutas/preguntaRutas';
 import imagenesRutas from './rutas/imagenesRutas';
+import anexosRutas from './rutas/anexosRutas';
 
 class Servidor {
 
@@ -38,6 +39,7 @@ class Servidor {
     this.app.use('/miapi/privado/tipo', tipoRutas);
     this.app.use('/miapi/privado/preguntas', preguntaRutas);
     this.app.use('/miapi/privado/imagenes', imagenesRutas);
+    this.app.use('/miapi/privado/anexos', anexosRutas);
   }
 
   public iniciar(): void {
