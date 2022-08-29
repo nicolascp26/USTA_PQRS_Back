@@ -28,7 +28,7 @@ class MensajesDAO {
   protected static async registrarSolicitud(sql: string, parametros: any, res: Response): Promise<any> {
     await pool.result(sql, parametros)
       .then((resultado: any) => {
-        res.status(200).json({ respuesta: "Solicitud registrada", resultado: resultado.rowCount });
+        res.status(200).json({ respuesta: "Solicitud registrada", resultado: resultado.rows[0] });
       })
       .catch((miError: any) => {
         console.log(miError);
