@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import rolController from '../controladores/roles/rolController';
+import { verifyToken } from "../middleware/authentication";
 
 class RolRutas {
   public router: Router;
@@ -9,7 +10,7 @@ class RolRutas {
     this.todasLasRutas();
   }
   public todasLasRutas(): void {
-    this.router.get('/getAll', rolController.obtenerTodosRoles);
+    this.router.get('/getAll', verifyToken, rolController.obtenerTodosRoles);
   }
 }
 

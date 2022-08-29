@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import usuarioController from '../controladores/usuarios/UsuarioController';
+import { verifyToken } from "../middleware/authentication";
 
 class ImagenesRutas {
   public router: Router;
@@ -8,7 +9,7 @@ class ImagenesRutas {
     this.todasLasRutas();
   }
   public todasLasRutas(): void {
-    this.router.post('/addProfileImage', usuarioController.agregarImagen);
+    this.router.post('/addProfileImage', verifyToken, usuarioController.agregarImagen);
   }
 }
 

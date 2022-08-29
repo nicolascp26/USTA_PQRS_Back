@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import tipoController from '../controladores/tipo/tipoController';
+import { verifyToken, isAdmin } from "../middleware/authentication";
 
 class TipoRutas {
   public router: Router;
@@ -9,10 +10,10 @@ class TipoRutas {
     this.todasLasRutas();
   }
   public todasLasRutas(): void {
-    this.router.get('/getAll', tipoController.obtenerTodosTipos);
-    this.router.delete('/delete/:tipoId', tipoController.eliminarTipo);
-    this.router.post('/create', tipoController.crearTipo);
-    this.router.put('/update/:tipoId', tipoController.actualizarTipo);
+    this.router.get('/getAll', verifyToken, tipoController.obtenerTodosTipos);
+    this.router.delete('/delete/:tipoId', [verifyToken, isAdmin], tipoController.eliminarTipo);
+    this.router.post('/create', [verifyToken, isAdmin], tipoController.crearTipo);
+    this.router.put('/update/:tipoId', [verifyToken, isAdmin], tipoController.actualizarTipo);
   }
 }
 
