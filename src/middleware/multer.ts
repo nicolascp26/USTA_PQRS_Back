@@ -4,11 +4,11 @@ function uploadFile() {
   const storage = multer.diskStorage({
     filename: function(_res, file, cb) {
       console.log(file.originalname);
-      const ext = file.originalname.split(".").pop(); //TODO pdf / jpeg / mp3
-      const fileName = Date.now(); //TODO 12312321321
-      cb(null, fileName + '.' + ext); //TODO 123123213232.pdf
+      const ext = file.originalname.split(".").pop();
+      const fileName = Date.now();
+      cb(null, fileName + '.' + ext);
     },
-    destination: function(_res, file, cb) {
+    destination: function(_res, _file, cb) {
       cb(null, './src/public/anexos');
     },
   });

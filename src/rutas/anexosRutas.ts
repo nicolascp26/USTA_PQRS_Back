@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import anexoController from '../controladores/anexos/anexoController';
 import uploadFile from '../middleware/multer';
+import { verifyToken } from "../middleware/authentication";
 
 class AnexosRutas {
   public router: Router;
@@ -9,8 +10,8 @@ class AnexosRutas {
     this.todasLasRutas();
   }
   public todasLasRutas(): void {
-    this.router.post('/uploadFile', uploadFile(),anexoController.subirAnexo);
-    this.router.get('/getFiles/:mensajeId',anexoController.obtenerAnexos);
+    this.router.post('/uploadFile', [verifyToken, uploadFile()], anexoController.subirAnexo);
+    this.router.get('/getFiles/:mensajeId', anexoController.obtenerAnexos);
   }
 }
 

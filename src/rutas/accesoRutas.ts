@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import accesoController from '../controladores/acceso/accesoController';
+import { verifyToken } from "../middleware/authentication";
 
 class AccesoRutas {
   public router: Router;
@@ -11,7 +12,7 @@ class AccesoRutas {
 
   public configuracion(): void {
     this.router.post('/login', accesoController.iniciar);
-    this.router.put('/updatePassword/:usuarioId', accesoController.actualizarClave);
+    this.router.put('/updatePassword/:usuarioId', verifyToken, accesoController.actualizarClave);
   }
 }
 const accesoRutas = new AccesoRutas();
