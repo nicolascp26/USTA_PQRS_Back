@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import preguntaController from '../controladores/preguntasFrecuentes/preguntasController';
+import { verifyToken, isAdmin } from "../middleware/authentication";
 
 class PreguntaRutas {
   public router: Router;
@@ -11,9 +12,9 @@ class PreguntaRutas {
   public todasLasRutas(): void {
     this.router.get('/getAll', preguntaController.obtenerTodasPreguntas);
     this.router.get('/getSingle/:prefId', preguntaController.obtenerPreguntaUnica);
-    this.router.delete('/delete/:prefId', preguntaController.eliminarPregunta);
-    this.router.post('/create', preguntaController.crearPregunta);
-    this.router.put('/update/:prefId', preguntaController.actualizarPregunta);
+    this.router.delete('/delete/:prefId', [verifyToken, isAdmin], preguntaController.eliminarPregunta);
+    this.router.post('/create', verifyToken, preguntaController.crearPregunta);
+    this.router.put('/update/:prefId', verifyToken, preguntaController.actualizarPregunta);
   }
 }
 

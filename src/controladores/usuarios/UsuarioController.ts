@@ -24,7 +24,6 @@ class UsuarioController extends UsuarioDAO {
     const correo = req.body[1].correoUsuario;
     const clave = req.body[1].claveUsuario;
     const params = [nombres, apellidos, documento, correo, clave];
-    console.log(req.body);
     return UsuarioController.registrarUsuario(
       SQL_REGISTRO.VERIFICAR_CORREO_UNICO,
       SQL_REGISTRO.REGISTRAR_USUARIO,
