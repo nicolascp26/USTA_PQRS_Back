@@ -1,6 +1,6 @@
 export const SQL_REGISTRO = {
   REGISTRAR_USUARIO: "INSERT INTO usuario (usuario_nombres, usuario_apellidos, \
-    usuario_documento, usuario_telefono,usuario_rol, usuario_estado) VALUES ($1,$2,$3,\'No disponible\',2,1) \
+    usuario_documento, usuario_telefono,usuario_rol, usuario_estado) VALUES ($1,$2,$3,\'No disponible\',4,1) \
     RETURNING usuario_id",
 
   REGISTRAR_ACCESO: "INSERT INTO acceso ( acceso_correo, acceso_clave,acceso_usuario_id) \
