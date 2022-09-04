@@ -25,3 +25,13 @@ export const isAdmin = async (_req: any, res: any, next: any) => {
     return res.status(500).json({ respuesta: "Error en la peticion" });
   }
 };
+
+export const isStudent = async (_req: any, res: any, next: any) => {
+  try {
+    if (role === 'Estudiante') {
+      next();
+    } else return res.status(403).json({ respuesta: "No es Estudiante" });
+  } catch (error) {
+    return res.status(500).json({ respuesta: "Error en la peticion" });
+  }
+};
