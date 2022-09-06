@@ -6,6 +6,22 @@ class AccesoControllerVerificar {
 
   public static async procesarRespuesta(registro: any, correo: string, res: Response): Promise<any> {
     let base = '';
+    let expireTime = '';
+    let rolTemp = registro.rolNombre;
+    switch (rolTemp) {
+      case 'Administrador':
+        expireTime = '24h';
+        break;
+      case 'Estudiante':
+        expireTime = '2h';
+        break;
+      case 'Docente':
+        expireTime = '20h';
+        break;
+      case 'Invitado':
+        expireTime = '1h';
+        break;
+    }
     const rutaImagenSistema = './src/public/sistema/fondo_usuario_login.png';
     const rutaImagenPrivada = './src/public/fotos/' + registro.imgNombrePrivado;
     const token = jwt.sign({
@@ -15,7 +31,7 @@ class AccesoControllerVerificar {
       'usuarioNombres': registro.usuarioNombres
     },
       'clavesupersecretagg', {
-        expiresIn: '600s'
+        expiresIn: expireTime
       });
 
     if (fs.existsSync(rutaImagenPrivada)) {
