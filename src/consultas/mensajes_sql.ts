@@ -9,18 +9,20 @@ export const SQL_MENSAJES = {
     AND mensaje_codpadre IS NULL\
     ORDER BY m.mensaje_actualizado DESC",
   OBTENER_SOLICITUDES_ADMIN: "SELECT m.mensaje_id, m.mensaje_titulo, m.mensaje_detalle, m.mensaje_fecha, \
-   m.mensaje_estado,m.mensaje_actualizado,u.usuario_nombres, u.usuario_apellidos,t.tipo_id,t.tipo_clase,t.tipo_nombre \
-      FROM mensaje m INNER JOIN usuario u ON u.usuario_id = m.mensaje_id_usuario \
-      INNER JOIN tipo t ON t.tipo_id = m.mensaje_tipo_id\
-      AND mensaje_codpadre IS NULL\
-      ORDER BY m.mensaje_actualizado DESC;",
+   m.mensaje_estado,m.mensaje_actualizado,u.usuario_nombres, u.usuario_apellidos,t.tipo_id,t.tipo_clase,t.tipo_nombre, \
+   u2.usuario_nombres as asignado_nombres, u2.usuario_apellidos as asignado_apellidos\
+    FROM mensaje m INNER JOIN usuario u ON u.usuario_id = m.mensaje_id_usuario \
+    LEFT JOIN usuario u2 ON u2.usuario_id = m.mensaje_usuario_asignado\
+    INNER JOIN tipo t ON t.tipo_id = m.mensaje_tipo_id\
+    AND mensaje_codpadre IS NULL\
+    ORDER BY m.mensaje_actualizado DESC;",
   OBTENER_SOLICITUDES_DOCENTE: "SELECT m.mensaje_id, m.mensaje_titulo, m.mensaje_detalle, m.mensaje_fecha, \
    m.mensaje_estado,m.mensaje_actualizado,u.usuario_nombres, u.usuario_apellidos,t.tipo_id,t.tipo_clase,t.tipo_nombre \
-      FROM mensaje m INNER JOIN usuario u ON u.usuario_id = m.mensaje_id_usuario \
-      INNER JOIN tipo t ON t.tipo_id = m.mensaje_tipo_id\
-      WHERE mensaje_usuario_asignado = $1 \
-      AND mensaje_codpadre IS NULL\
-      ORDER BY m.mensaje_actualizado DESC;",
+    FROM mensaje m INNER JOIN usuario u ON u.usuario_id = m.mensaje_id_usuario \
+    INNER JOIN tipo t ON t.tipo_id = m.mensaje_tipo_id\
+    WHERE mensaje_usuario_asignado = $1 \
+    AND mensaje_codpadre IS NULL\
+    ORDER BY m.mensaje_actualizado DESC;",
   RESPONDER_MENSAJE: " INSERT INTO mensaje (mensaje_codpadre,mensaje_id_usuario,mensaje_estado,mensaje_actualizado,mensaje_titulo,mensaje_detalle,mensaje_tipo_id) VALUES \
    ($1,$2,null,null,$4,$5,null);\
    UPDATE mensaje \
