@@ -17,6 +17,12 @@ class UsuarioController extends UsuarioDAO {
     UsuarioController.obtenerTodos(SQL_USUARIOS.OBTENER_USUARIOS, req, res);
   }
 
+  public obtenerDocentes(req: Request, res: Response) {
+    const id = req.params.usuarioId;
+    const params = [id];
+    UsuarioController.obtenerTodos(SQL_USUARIOS.OBTENER_DOCENTES, params, res);
+  }
+
   public registrarUsuarioAcceso(req: Request, res: Response): Promise<any> {
     const nombres = req.body[0].usuarioNombres;
     const apellidos = req.body[0].usuarioApellidos;
@@ -66,10 +72,17 @@ class UsuarioController extends UsuarioDAO {
   public obtenerEstadisticas(req: Request, res: Response) {
     UsuarioController.obtenerEstadisticas(SQL_USUARIOS.STATS_ADMIN, req, res);
   }
+
   public obtenerEstadisticasUsuario(req: Request, res: Response) {
     const id = req.params.usuarioId;
     const params = [id];
-    UsuarioController.obtenerEstadisticasUsuario(SQL_USUARIOS.STATS_USER, params, res);
+    UsuarioController.obtenerEstadisticas(SQL_USUARIOS.STATS_USER, params, res);
+  }
+
+  public obtenerEstadisticasDocente(req: Request, res: Response) {
+    const id = req.params.usuarioId;
+    const params = [id];
+    UsuarioController.obtenerEstadisticas(SQL_USUARIOS.STATS_DOCENTE, params, res);
   }
 
 }

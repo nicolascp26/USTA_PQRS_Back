@@ -3,6 +3,12 @@ export const SQL_USUARIOS = {
   u.usuario_telefono, r.rol_id, r.rol_nombre\
   FROM usuario u INNER JOIN roles r ON u.usuario_rol = r.rol_id\
   ORDER BY u.usuario_rol',
+  OBTENER_DOCENTES: 'SELECT u.usuario_id, u.usuario_nombres, u.usuario_apellidos, u.usuario_documento, \
+  u.usuario_telefono, r.rol_nombre\
+  FROM usuario u INNER JOIN roles r ON u.usuario_rol = r.rol_id\
+  WHERE u.usuario_rol NOT IN (2,4)\
+  AND u.usuario_id != $1\
+  ORDER BY u.usuario_rol',
   OBTENER_USUARIO_UNICO: 'SELECT u.usuario_id, u.usuario_nombres, u.usuario_apellidos, u.usuario_documento, \
   u.usuario_telefono, r.rol_id, r.rol_nombre\
   FROM usuario u INNER JOIN roles r ON u.usuario_rol = r.rol_id\
@@ -31,11 +37,18 @@ export const SQL_USUARIOS = {
 (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=4) as terminadas,\
 (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL) as totales \
 FROM mensaje',
-STATS_USER: 'SELECT DISTINCT \
+  STATS_USER: 'SELECT DISTINCT \
 (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=1 AND mensaje_id_usuario = $1) as nuevas,\
 (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=2 AND mensaje_id_usuario = $1) as esperando,\
 (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=3 AND mensaje_id_usuario = $1) as respondidas,\
 (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=4 AND mensaje_id_usuario = $1) as terminadas,\
 (SELECT count(mensaje_id_usuario) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_id_usuario = $1) as totales \
+FROM mensaje',
+  STATS_DOCENTE: 'SELECT DISTINCT \
+  (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=1 AND mensaje_usuario_asignado = $1) as nuevas,\
+  (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=2 AND mensaje_usuario_asignado = $1) as respondidas,\
+  (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=3 AND mensaje_usuario_asignado = $1) as esperando,\
+  (SELECT count(mensaje_id) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_estado=4 AND mensaje_usuario_asignado = $1) as terminadas,\
+(SELECT count(mensaje_usuario_asignado) FROM mensaje WHERE mensaje_codpadre IS NULL AND mensaje_usuario_asignado = $1) as totales \
 FROM mensaje',
 }
