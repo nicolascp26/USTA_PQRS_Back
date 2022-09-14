@@ -29,11 +29,12 @@ CREATE TABLE mensaje (
     mensaje_detalle         TEXT NOT NULL,
     mensaje_fecha           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     mensaje_actualizado     TIMESTAMP DEFAULT CURRENT_TIMESTAMP(0),
-    mensaje_tipo_id         INTEGER
+    mensaje_tipo_id         INTEGER,
+    mensaje_usuario_asignado INTEGER
 );
 
 CREATE TABLE roles (
-    rol_id      SERIAL NOT NULL PRIMARY KEY,
+    rol_id      INTEGER NOT NULL PRIMARY KEY,
     rol_nombre  VARCHAR(15) NOT NULL
 );
 
@@ -60,7 +61,7 @@ CREATE TABLE preguntas_frecuentes (
 );
 
 ALTER TABLE acceso
-ADD CONSTRAINT constraint_name UNIQUE (acceso_correo);
+ADD CONSTRAINT acceso_correo_unico UNIQUE (acceso_correo);
 
 ALTER TABLE acceso
     ADD CONSTRAINT acceso_usuario_fk FOREIGN KEY ( acceso_usuario_id )
@@ -86,6 +87,10 @@ ALTER TABLE mensaje
     ADD CONSTRAINT mensaje_tipo_fk FOREIGN KEY ( mensaje_tipo_id )
         REFERENCES tipo ( tipo_id );
 
+ALTER TABLE mensaje
+    ADD CONSTRAINT mensaje_usuario_asignado_fk FOREIGN KEY ( mensaje_usuario_asignado )
+        REFERENCES usuario ( usuario_id );
+
 ALTER TABLE usuario
     ADD CONSTRAINT usuario_roles_fk FOREIGN KEY ( usuario_rol )
         REFERENCES roles ( rol_id );
@@ -93,8 +98,8 @@ ALTER TABLE usuario
 
 ------------------DML OBLIGATORIO--------------------
 
-INSERT INTO roles (rol_nombre) values
- ('Administrador'),('Estudiante'),('Docente'),('Invitado');
+INSERT INTO roles (rol_id, rol_nombre) values
+ (1,'Administrador'),(2,'Estudiante'),(3,'Docente'),(4,'Invitado');
 
 INSERT INTO usuario (usuario_nombres, usuario_apellidos,usuario_documento,usuario_telefono,usuario_rol,usuario_estado) values
  ('Luz Elena', 'Gutierrez','12346789','3115550000',1,1);

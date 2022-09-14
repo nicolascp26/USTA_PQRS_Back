@@ -14,6 +14,12 @@ class MensajesController extends MensajesDAO {
     MensajesController.obtenerSolicitudes(SQL_MENSAJES.OBTENER_SOLICITUDES_USUARIO, params, res);
   }
 
+  public obtenerSolicitudesDocente(req: Request, res: Response) {
+    const id = req.params.usuarioAsignado;
+    const params = [id];
+    MensajesController.obtenerSolicitudes(SQL_MENSAJES.OBTENER_SOLICITUDES_DOCENTE, params, res);
+  }
+
   public obtenerHiloMensajes(req: Request, res: Response) {
     const id = req.params.mensajeId;
     const params = [id];
@@ -50,6 +56,13 @@ class MensajesController extends MensajesDAO {
     const id = req.params.mensajeId;
     const params = [id];
     return MensajesController.modificarEstadoSolicitud(SQL_MENSAJES.REABRIR_SOLICITUD, params, res);
+  }
+
+  public reasignarSolicitud(req: Request, res: Response) {
+    const mensajeId = req.body[0];
+    const usuarioId = req.body[1];
+    const params = [mensajeId,usuarioId];
+    return MensajesController.modificarEstadoSolicitud(SQL_MENSAJES.REASIGNAR_SOLICITUD, params, res);
   }
 
 }
