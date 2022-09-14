@@ -27,6 +27,7 @@ class AccesoControllerVerificar {
     const token = jwt.sign({
       'id': registro.usuarioId,
       'correo': correo,
+      'rolId':registro.rolId,
       'usuarioRol': registro.rolNombre,
       'usuarioNombres': registro.usuarioNombres
     },
