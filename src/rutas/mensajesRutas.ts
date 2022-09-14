@@ -11,7 +11,7 @@ class MensajesRutas {
   }
 
   public configuracion(): void {
-    this.router.get('/getAllAdmin', verifyToken, mensajesController.obtenerSolicitudesAdmin);
+    this.router.get('/getAllAdmin', [verifyToken, isAdmin], mensajesController.obtenerSolicitudesAdmin);
     this.router.get('/getAllUser/:usuarioId', verifyToken, mensajesController.obtenerSolicitudesUsuario);
     this.router.get('/getAllTeacher/:usuarioAsignado', verifyToken, mensajesController.obtenerSolicitudesDocente);
     this.router.get('/getMsgThread/:mensajeId', verifyToken, mensajesController.obtenerHiloMensajes);
