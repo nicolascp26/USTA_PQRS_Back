@@ -6,7 +6,7 @@ export const SQL_USUARIOS = {
   OBTENER_DOCENTES: 'SELECT u.usuario_id, u.usuario_nombres, u.usuario_apellidos, u.usuario_documento, \
   u.usuario_telefono, r.rol_nombre\
   FROM usuario u INNER JOIN roles r ON u.usuario_rol = r.rol_id\
-  WHERE u.usuario_rol NOT IN (2,4)\
+  WHERE u.usuario_rol IN (3)\
   AND u.usuario_id != $1\
   ORDER BY u.usuario_rol',
   OBTENER_USUARIO_UNICO: 'SELECT u.usuario_id, u.usuario_nombres, u.usuario_apellidos, u.usuario_documento, \
